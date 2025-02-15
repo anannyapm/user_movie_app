@@ -11,6 +11,7 @@ class UserRepository {
   final HiveService _hiveService = getIt<HiveService>();
   final NetworkService _networkService = getIt<NetworkService>();
 
+  //User stream to get user list updates
   final StreamController<List<UserModel>> _userStreamController =
       StreamController<List<UserModel>>.broadcast();
   Stream<List<UserModel>> get userStream => _userStreamController.stream;
@@ -21,6 +22,7 @@ class UserRepository {
   int _currentPage = 1;
   bool _isFetching = false; // To handle redundant API calls
 
+  //Get Users
   Future<List<UserModel>> fetchUsers() async {
     if (_isFetching) return _allUsers;
 
@@ -67,6 +69,7 @@ class UserRepository {
     }
   }
 
+  //Get user without pagination
   Future<List<UserModel>> fetchUsersWithInitialPage() async {
     developer.log('Fetching users', name: 'UserRepository');
     developer.log('Is fetching: $_isFetching', name: 'UserRepository');
@@ -118,6 +121,7 @@ class UserRepository {
     }
   }
 
+  //Add User
   Future<void> addUser(UserModel user) async {
     bool isOnline = await _networkService.isConnected();
 
@@ -140,6 +144,7 @@ class UserRepository {
     }
   }
 
+  //Sync Offline Users
   Future<void> syncOfflineUsers() async {
     bool isOnline = await _networkService.isConnected();
     if (!isOnline) return;
@@ -159,6 +164,7 @@ class UserRepository {
     }
   }
 
+  //Get all user from api and local
   Future<List<UserModel>> getAllUsers() async {
     List<UserModel> hiveUsers = await _hiveService.getAllUsers();
 
@@ -170,6 +176,7 @@ class UserRepository {
     return _allUsers;
   }
 
+  //Combine users from hive to api list
   List<UserModel> _combineUsers(
       List<UserModel> hiveUsers, List<UserModel> apiUsers) {
     Map<int, UserModel> combinedUsers = {};
