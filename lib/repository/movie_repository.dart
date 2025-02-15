@@ -7,6 +7,7 @@ import '../core/models/movie_model.dart';
 class MovieRepository {
   final Dio dio = getIt<Dio>();
 
+  //Get Movies
   Future<List<MovieModel>> getMovies(int page) async {
     final response = await dio.get(
         "https://api.themoviedb.org/3/trending/movie/day",
@@ -20,6 +21,7 @@ class MovieRepository {
         .toList();
   }
 
+  //Get Movie Details
   Future<MovieModel> fetchMovieDetails(int movieId) async {
     final url = 'https://api.themoviedb.org/3/movie/$movieId';
 
