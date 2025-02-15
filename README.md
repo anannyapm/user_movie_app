@@ -1,16 +1,18 @@
-# sample_project
+# Flutter User & Movie App
 
-A new Flutter project.
+A Flutter app that allows users to view a paginated list of users, add new users with offline support, and navigate to a movie listing screen with pagination and movie details.
+Due to some existing reported issues in WorkManager in iOS, background-fetch package is used to handle offline sync in background. 
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- **User List**: Paginated list from API.
+- **Add Users**: Offline support with sync.
+- **Search Users**: Search and find users
+- **Movie List**: Paginated movie list (from TMDB ).
+- **Movie Details**: Detailed movie view.
+- **State Management**: Provider.
+- **Local Storage**: Hive
+- **Image Loading**: CachedNetworkImage
+- **Offline Handling**: Background-Fetch package
+- **Clean Architecture**
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
