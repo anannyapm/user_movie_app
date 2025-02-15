@@ -11,22 +11,26 @@ class UserProvider extends ChangeNotifier {
     _initStream();
   }
 
+  ///variables
   List<UserModel> _filteredUsers = [];
   String _searchQuery = '';
-
+  
   bool _isLoading = false;
   bool get isLoading => _isLoading;
-
+  
   Timer? _debounce;
-
+  
   List<UserModel> _users = [];
   List<UserModel> get users => _filteredUsers.isEmpty ? _users : _filteredUsers;
-
+  
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
 
   StreamSubscription<List<UserModel>>? _userStreamSubscription;
 
+  ///functions
+
+  //initialize stream subscription
   void _initStream() {
     _userStreamSubscription = _userRepository.userStream.listen(
       (users) {
@@ -41,6 +45,7 @@ class UserProvider extends ChangeNotifier {
     );
   }
 
+  //fetch user list
   Future<void> fetchUsers() async {
     if (_isLoading) return;
 
@@ -59,6 +64,7 @@ class UserProvider extends ChangeNotifier {
     }
   }
 
+  //add user
   Future<void> addUser(String name, String job) async {
     UserModel newUser = UserModel(
       firstName: name,
@@ -77,6 +83,7 @@ class UserProvider extends ChangeNotifier {
     }
   }
 
+  //sync users that are offline
   Future<void> syncOfflineUsers() async {
     try {
       await _userRepository.syncOfflineUsers();
@@ -88,6 +95,7 @@ class UserProvider extends ChangeNotifier {
     }
   }
 
+  //search users
   void searchUsers(String query) {
     if (_debounce?.isActive ?? false) {
       _debounce?.cancel();
